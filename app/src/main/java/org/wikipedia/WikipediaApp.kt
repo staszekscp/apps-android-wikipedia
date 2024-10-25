@@ -8,6 +8,13 @@ import android.os.Handler
 import android.speech.RecognizerIntent
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatDelegate
+import com.facebook.react.PackageList
+import com.facebook.react.ReactApplication
+import com.facebook.react.ReactHost
+import com.facebook.react.ReactNativeHost
+import com.facebook.react.ReactPackage
+import com.facebook.react.defaults.DefaultReactHost
+import com.facebook.react.defaults.DefaultReactNativeHost
 import io.reactivex.rxjava3.internal.functions.Functions
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -39,7 +46,7 @@ import org.wikipedia.util.ReleaseUtil
 import org.wikipedia.util.log.L
 import java.util.UUID
 
-class WikipediaApp : Application() {
+class WikipediaApp : Application(), ReactApplication {
     init {
         instance = this
     }
@@ -133,6 +140,15 @@ class WikipediaApp : Application() {
             false
         }
     }
+    override val reactNativeHost: ReactNativeHost =
+        object : DefaultReactNativeHost(this) {
+            override fun getPackages(): List<ReactPackage> = PackageList(this).packages
+            override fun getJSMainModuleName(): String = "index"
+            override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
+        }
+
+    override val reactHost: ReactHost
+        get() = DefaultReactHost.getDefaultReactHost(applicationContext, reactNativeHost)
 
     override fun onCreate() {
         super.onCreate()

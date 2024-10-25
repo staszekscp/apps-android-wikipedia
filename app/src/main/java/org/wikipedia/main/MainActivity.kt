@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 import org.wikipedia.Constants
 import org.wikipedia.R
 import org.wikipedia.activity.SingleFragmentActivity
@@ -25,7 +26,7 @@ import org.wikipedia.util.DimenUtil
 import org.wikipedia.util.FeedbackUtil
 import org.wikipedia.util.ResourceUtil
 
-class MainActivity : SingleFragmentActivity<MainFragment>(), MainFragment.Callback {
+class MainActivity : SingleFragmentActivity<MainFragment>(), MainFragment.Callback, DefaultHardwareBackBtnHandler {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -165,6 +166,10 @@ class MainActivity : SingleFragmentActivity<MainFragment>(), MainFragment.Callba
 
     private fun clearToolbarElevation() {
         binding.mainToolbar.elevation = 0f
+    }
+
+    override fun invokeDefaultOnBackPressed() {
+        super.onBackPressed()
     }
 
     companion object {

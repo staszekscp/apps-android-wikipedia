@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlinx-serialization'
+    id 'com.facebook.react'
 }
 
 // Copy the signing.properties.sample file to ~/.sign/signing.properties and adjust the values.
@@ -18,6 +19,10 @@ static def computeVersionName(versionCode, label) {
 }
 
 final JavaVersion JAVA_VERSION = JavaVersion.VERSION_17
+
+react {
+    autolinkLibrariesWithApp()
+}
 
 android {
     compileSdk 34
@@ -35,7 +40,7 @@ android {
 
     defaultConfig {
         applicationId 'org.wikipedia'
-        minSdk 21
+        minSdk 23
         targetSdk 34
         versionCode 50503
         testApplicationId 'org.wikipedia.test'
@@ -177,6 +182,8 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
     implementation libs.kotlinx.serialization.json
+    implementation "com.facebook.react:react-android"
+    implementation "com.facebook.react:hermes-android"
 
     implementation libs.material
     implementation libs.appcompat
