@@ -3,6 +3,7 @@ package org.wikipedia.navtab
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.facebook.react.ReactFragment
 import org.wikipedia.R
 import org.wikipedia.feed.FeedFragment
 import org.wikipedia.history.HistoryFragment
@@ -21,9 +22,9 @@ enum class NavTab constructor(
             return FeedFragment.newInstance()
         }
     },
-    READING_LISTS(R.string.nav_item_saved, R.id.nav_tab_reading_lists, R.drawable.selector_nav_saved) {
+    READING_LISTS(R.string.nav_item_react_native, R.id.nav_tab_reading_lists, R.drawable.react_native) {
         override fun newInstance(): Fragment {
-            return ReadingListsFragment.newInstance()
+            return ReactFragment.Builder().setComponentName("HelloBrownfield").build()
         }
     },
     SEARCH(R.string.nav_item_search, R.id.nav_tab_search, R.drawable.selector_nav_search) {

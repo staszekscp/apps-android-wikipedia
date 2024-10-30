@@ -9,6 +9,7 @@ buildscript {
         classpath libs.kotlin.gradle.plugin
         classpath libs.kotlin.serialization
         classpath libs.google.services
+        classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
 

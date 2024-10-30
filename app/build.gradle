@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlinx-serialization'
+    id 'com.facebook.react'
 }
 
 // Copy the signing.properties.sample file to ~/.sign/signing.properties and adjust the values.
@@ -35,7 +36,7 @@ android {
 
     defaultConfig {
         applicationId 'org.wikipedia'
-        minSdk 21
+        minSdk 24
         targetSdk 34
         versionCode 50503
         testApplicationId 'org.wikipedia.test'
@@ -161,6 +162,10 @@ configurations {
     compileClasspath.extendsFrom(implementation)
 }
 
+react {
+    autolinkLibrariesWithApp()
+}
+
 apply from: '../gradle/src/test.gradle'
 apply from: '../gradle/src/checkstyle.gradle'
 apply from: '../gradle/src/ktlint.gradle'
@@ -222,6 +227,10 @@ dependencies {
     ksp libs.androidx.room.compiler
     implementation libs.androidx.room.ktx
     implementation libs.androidx.room.rxjava3
+
+    // React Native dependencies
+    implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:hermes-android")
 
     // For language detection during editing
     prodImplementation libs.com.google.mlkit.language.id
