@@ -17,7 +17,7 @@ fragmentKtx = "1.8.3"
 glideVersion = "4.16.0"
 googlePayVersion = "19.4.0"
 googleServices = "4.4.2"
-gradle = "8.6.1"
+gradle = "8.6.0"
 hamcrest = "3.0"
 installreferrer = "2.2"
 jsoup = "1.18.1"
@@ -47,6 +47,7 @@ rxjava = "3.1.9"
 uiautomator = "2.3.0"
 viewpager2 = "1.1.0"
 workRuntimeKtx = "2.9.1"
+kotlin = "1.9.24"
 
 [libraries]
 android-sdk = { module = "org.maplibre.gl:android-sdk", version.ref = "androidSdk" }
@@ -117,3 +118,4 @@ work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "w
 
 [plugins]
 ksp-plugin = { id = 'com.google.devtools.ksp', version.ref = "kspPlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

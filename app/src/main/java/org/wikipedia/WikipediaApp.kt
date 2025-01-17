@@ -54,6 +54,28 @@ class WikipediaApp : Application(), ReactApplication {
         instance = this
     }
 
+    // Lazy-loaded default instance for ReactNativeHost
+    private var reactNativeHostInstance: ReactNativeHost? = null
+
+    override val reactNativeHost: ReactNativeHost
+        get() {
+            if (reactNativeHostInstance == null) {
+                println("Creating new reactNativeHostInstance")
+                reactNativeHostInstance = object : DefaultReactNativeHost(this) {
+                    override fun getJSMainModuleName(): String = "index"
+                    override fun getPackages(): List<ReactPackage> =
+                        PackageList(this).packages.apply {
+                            // Add custom packages if needed
+                        }
+
+                    override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
+                }
+            } else {
+                println("Reusing old reactNativeHostInstance")
+            }
+            return reactNativeHostInstance!!
+        }
+
     val mainThreadHandler by lazy { Handler(mainLooper) }
     val languageState by lazy { AppLanguageState(this) }
     val appSessionEvent by lazy { AppSessionEvent() }
@@ -144,14 +166,6 @@ class WikipediaApp : Application(), ReactApplication {
         }
     }
 
-    override val reactNativeHost: ReactNativeHost =
-        object : DefaultReactNativeHost(this) {
-            override fun getJSMainModuleName(): String = "index"
-            override fun getPackages(): List<ReactPackage> =
-                PackageList(this).packages.apply {
-                }
-            override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
-        }
     override val reactHost: ReactHost
         get() = DefaultReactHost.getDefaultReactHost(applicationContext, reactNativeHost)
 
@@ -303,6 +317,12 @@ class WikipediaApp : Application(), ReactApplication {
         if (tabList.isEmpty()) {
             tabList.add(Tab())
         }
+    }
+
+    fun tearDownHost() {
+        println("Calling WikipediaApp.tearDownHost()")
+        reactNativeHost.clear()
+        reactNativeHostInstance = null
     }
 
     companion object {

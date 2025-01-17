@@ -1788,6 +1788,8 @@
     <string name="recommended_content_survey_dialog_message">Are you satisfied with this recommended search result?</string>
     <string name="recommended_content_survey_dialog_input_hint">Additional feedback</string>
     <string name="recommended_content_survey_dialog_submitted_message">Feedback submitted. Thank you!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- /Recommended Content -->
 
 </resources>

@@ -10,6 +10,7 @@ import org.wikipedia.history.HistoryFragment
 import org.wikipedia.model.EnumCode
 import org.wikipedia.readinglist.ReadingListsFragment
 import org.wikipedia.suggestededits.SuggestedEditsTasksFragment
+import org.wikipedia.ReactNativeStartStop
 
 enum class NavTab constructor(
     @StringRes val text: Int,
@@ -24,7 +25,8 @@ enum class NavTab constructor(
     },
     READING_LISTS(R.string.nav_item_react_native, R.id.nav_tab_reading_lists, R.drawable.react_native) {
         override fun newInstance(): Fragment {
-            return ReactFragment.Builder().setComponentName("HelloBrownfield").build()
+//            return ReactFragment.Builder().setComponentName("HelloBrownfield").build()
+            return ReactNativeStartStop.newInstance("ExamplePairam1", "ExampleParam2")
         }
     },
     SEARCH(R.string.nav_item_search, R.id.nav_tab_search, R.drawable.selector_nav_search) {
