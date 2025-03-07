@@ -9,6 +9,7 @@ gen-external-apklibs
 
 # Gradle
 .gradle
+.cxx
 /local.properties
 /build
 
