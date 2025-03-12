@@ -21,6 +21,46 @@ static def computeVersionName(versionCode, label) {
 
 final JavaVersion JAVA_VERSION = JavaVersion.VERSION_17
 
+task generateAndReplaceColors(type: Exec) {
+    // Set up command details for executing the Node.js script
+    commandLine 'node', '../../generateColors.js'
+
+    // Preparing to handle output from the exec command
+    standardOutput = new ByteArrayOutputStream()
+
+    // Define actions to perform after the execution of the node command
+    doLast {
+        // Assign the path of the generated XML file from the script's output
+        def tempFilePath = standardOutput.toString().trim()
+
+        if (!tempFilePath) {
+            logger.error("Failed to obtain the file path from the Node.js script.")
+        } else {
+            def rootColorsFile = file(tempFilePath)
+            def destinationDir = file('src/main/res/values')
+
+            if (rootColorsFile.exists()) {
+                copy {
+                    from rootColorsFile
+                    into destinationDir
+                }
+                println "The colors.xml has been replaced in $destinationDir"
+
+                // Clean up temporary XML file
+                if (rootColorsFile.delete()) {
+                    println "Temporary colors.xml file has been deleted successfully."
+                } else {
+                    println "Failed to delete the temporary colors.xml file. It may not exist or be locked."
+                }
+            } else {
+                println "No colors.xml file found at $tempFilePath"
+            }
+        }
+    }
+}
+
+preBuild.dependsOn generateAndReplaceColors
+
 android {
     compileSdk 35
 
